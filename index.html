@@ -1,14 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devcrafty</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mon site - Liens</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#7c3aed;--text:#e6eef8}
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;background:linear-gradient(180deg,#071122 0%, #051021 100%);color:var(--text)}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(6px);padding:28px;border-radius:16px;max-width:520px;width:100%;text-align:center}
+    h1{margin:0 0 8px;font-size:1.5rem}
+    p{margin:0 0 18px;color:rgba(230,238,248,0.75)}
+    .buttons{display:flex;gap:12px;flex-direction:column}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:12px;border:0;font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;color:var(--text);transition:transform .12s ease, box-shadow .12s ease}
+    .btn:active{transform:translateY(1px)}
+    .gofile{background:linear-gradient(90deg,#5eead4,#34d399);box-shadow:0 6px 18px rgba(52,211,153,0.08)}
+    .discord{background:linear-gradient(90deg,#7289da,#5b6cff);box-shadow:0 6px 18px rgba(114,137,218,0.08)}
+    .youtube{background:linear-gradient(90deg,#ff7a7a,#ff3b3b);box-shadow:0 6px 18px rgba(255,59,59,0.08)}
+    .small{font-size:0.85rem;color:rgba(230,238,248,0.8);margin-top:12px}
+    @media(min-width:480px){.buttons{flex-direction:row}}
+  </style>
 </head>
 <body>
-  <h1>Welcome to Devcraftjs!</h1>
-  <p>My first website hosted on GitHub Pages.</p>
-  <script src="script.js"></script>
+  <div class="wrap">
+    <div class="card">
+      <h1>Bienvenue — Liens rapides</h1>
+      <p>Cliquez sur un bouton pour ouvrir le lien dans un nouvel onglet.</p>
+
+      <div class="buttons">
+        <a class="btn gofile" href="https://gofile.io/d/tsPCjo" target="_blank" rel="noopener noreferrer">Mon GoFile</a>
+        <a class="btn discord" href="https://discord.gg/5kVGEghHvn" target="_blank" rel="noopener noreferrer">Serveur Discord</a>
+        <a class="btn youtube" href="https://www.youtube.com/@SerialDesignationCyn-A7" target="_blank" rel="noopener noreferrer">YouTube</a>
+      </div>
+
+      <div class="small">Site prêt à être publié sur GitHub Pages — placez ce fichier <code>index.html</code> à la racine du dépôt.</div>
+    </div>
+  </div>
 </body>
 </html>
