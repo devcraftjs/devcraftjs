@@ -1,2 +1,2 @@
-console.log("Welcome to Devcraftjs!");
-alert("Hi there! Welcome to Devcraftjs!");
+console.log("Welcome to My Github website");
+alert("Welcome to My Github website");
