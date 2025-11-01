@@ -1,0 +1,202 @@
+<!--
+QR Code Generator
+File: index.html
+
+How to use:
+1. Save this file as index.html and push to your GitHub repo (e.g., my-game or my-qr-generator).
+2. In GitHub repo Settings → Pages, set Source to main branch / (root) and Save.
+3. Your site will be available at https://<your-username>.github.io/<repo-name>/
+
+This implementation uses the free QR API at https://goqr.me / https://api.qrserver.com to generate images client-side (no server code required).
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QR Code Generator</title>
+  <style>
+    :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--accent:#60a5fa}
+    *{box-sizing:border-box}
+    body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;min-height:100vh;margin:0;background:linear-gradient(180deg,#021028 0%,#071330 100%);color:#e6eef8;display:flex;align-items:center;justify-content:center;padding:24px}
+    .wrap{width:100%;max-width:980px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    .card{background:rgba(255,255,255,0.03);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type=text], textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:15px}
+    .controls{display:flex;gap:8px;margin-top:10px}
+    button{background:var(--accent);color:#01203a;border:none;padding:10px 12px;border-radius:8px;font-weight:600;cursor:pointer}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .preview{display:flex;flex-direction:column;align-items:center;gap:12px}
+    .qr-wrap{background:white;padding:12px;border-radius:8px}
+    img.qr{display:block;width:260px;height:260px}
+    .meta{font-size:13px;color:var(--muted)}
+    .row{display:flex;gap:8px}
+    footer{margin-top:14px;color:var(--muted);font-size:13px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr;}.qr{width:220px;height:220px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>QR Code Generator</h1>
+        <p class="lead">Create QR codes instantly — copy text, download PNG, or share the image URL.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div>
+          <label for="data">Data (URL, text, phone, wifi...)</label>
+          <textarea id="data" rows="4" placeholder="https://example.com or any text you want encoded">https://example.com</textarea>
+        </div>
+
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div>
+            <label for="size">Size (px)</label>
+            <input id="size" type="number" min="100" max="2000" value="260" />
+          </div>
+          <div>
+            <label for="ecc">Error correction</label>
+            <select id="ecc">
+              <option value="L">L - Low (7%)</option>
+              <option value="M" selected>M - Medium (15%)</option>
+              <option value="Q">Q - Quartile (25%)</option>
+              <option value="H">H - High (30%)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div>
+            <label for="color">Foreground color (hex)</label>
+            <input id="color" type="text" value="#000000" />
+          </div>
+          <div>
+            <label for="bg">Background color (hex or empty)</label>
+            <input id="bg" type="text" value="" placeholder="#ffffff or leave empty" />
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="generate">Generate</button>
+          <button class="ghost" id="copyText">Copy text</button>
+          <button class="ghost" id="reset">Reset</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <label for="directUrl">Direct image URL</label>
+          <input id="directUrl" type="text" readonly placeholder="Image URL will appear here after generating" />
+        </div>
+
+        <footer>
+          Tip: For GitHub Pages, save this file as <code>index.html</code> in your repo root.
+        </footer>
+      </div>
+
+      <aside class="card preview">
+        <div class="qr-wrap">
+          <img id="qrImg" class="qr" alt="QR preview" src="" />
+        </div>
+        <div class="meta">Preview (updates when you click Generate)</div>
+
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <a id="downloadBtn" class="" href="#" download="qr.png"><button id="downloadInner">Download PNG</button></a>
+          <button class="ghost" id="openBtn">Open image</button>
+        </div>
+
+        <div style="margin-top:8px;text-align:center;color:var(--muted);font-size:13px">Powered by api.qrserver.com (free)</div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const dataEl = document.getElementById('data');
+    const sizeEl = document.getElementById('size');
+    const eccEl = document.getElementById('ecc');
+    const colorEl = document.getElementById('color');
+    const bgEl = document.getElementById('bg');
+    const generateBtn = document.getElementById('generate');
+    const qrImg = document.getElementById('qrImg');
+    const directUrl = document.getElementById('directUrl');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const openBtn = document.getElementById('openBtn');
+    const copyTextBtn = document.getElementById('copyText');
+    const resetBtn = document.getElementById('reset');
+
+    function buildQrUrl({text, size, ecc, color, bgcolor}){
+      if(!text) return '';
+      const s = Math.max(100, Math.min(2000, Number(size)||260));
+      const params = new URLSearchParams();
+      params.set('size', s + 'x' + s);
+      params.set('data', text);
+      if(ecc) params.set('ecc', ecc);
+      // api accepts color as R,G,B integers or hex? We'll pass hex param 'color' without '#'
+      if(color){
+        const c = color.replace('#','');
+        params.set('color', c);
+      }
+      if(bgcolor){
+        params.set('bgcolor', bgcolor.replace('#',''));
+      }
+      return 'https://api.qrserver.com/v1/create-qr-code/?' + params.toString();
+    }
+
+    function generate(){
+      const text = dataEl.value.trim();
+      const size = sizeEl.value;
+      const ecc = eccEl.value;
+      const color = colorEl.value.trim();
+      const bg = bgEl.value.trim();
+      if(!text){
+        alert('Please enter some text or a URL to encode.');
+        return;
+      }
+      const url = buildQrUrl({text,size,ecc,color,bg});
+      qrImg.src = url;
+      directUrl.value = url;
+      downloadBtn.href = url;
+    }
+
+    generateBtn.addEventListener('click', generate);
+
+    openBtn.addEventListener('click', ()=>{
+      const url = directUrl.value;
+      if(!url) return alert('Generate first');
+      window.open(url, '_blank');
+    });
+
+    copyTextBtn.addEventListener('click', async ()=>{
+      const t = dataEl.value;
+      if(!t) return alert('Nothing to copy');
+      try{
+        await navigator.clipboard.writeText(t);
+        alert('Text copied to clipboard');
+      }catch(e){
+        alert('Copy failed — your browser may block clipboard access.');
+      }
+    });
+
+    resetBtn.addEventListener('click', ()=>{
+      dataEl.value = 'https://example.com';
+      sizeEl.value = 260;
+      eccEl.value = 'M';
+      colorEl.value = '#000000';
+      bgEl.value = '';
+      qrImg.src = '';
+      directUrl.value = '';
+      downloadBtn.href = '#';
+    });
+
+    // Auto-generate on load
+    window.addEventListener('DOMContentLoaded', () => {
+      generate();
+    });
+  </script>
+</body>
+</html>
