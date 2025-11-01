@@ -1,2 +1,7 @@
-Owner / Ownertest
-node_17 / node17
+ const accounts = {
+      'Owner':'Ownertest',
+      'Ownerbf':'43a92d1b',
+      'Admin':'Admintest',
+      'tester':'testertest',
+      'node_17':'node17'
+    };
