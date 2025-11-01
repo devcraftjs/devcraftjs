@@ -17,7 +17,7 @@
         <div style="display:flex;align-items:center;gap:10px">
           <div class="logo">NightHub<span class="badge">SIM</span></div>
         </div>
-        <div class="onion">43a92d1b-9c61-4f2e-8b7a-<span style="opacity:.85">.onion</span></div>
+        <div class="onion" id="onion">loading.onion</div>
 
         <div style="margin-top:16px">
           <div class="mini">Status</div>
@@ -68,11 +68,20 @@
         <button class="ghost" id="closeModal">Cancel</button>
         <button class="btn" id="loginBtn">Enter</button>
       </div>
-      <div class="small" style="margin-top:6px; color: var(--muted);">Available accounts: Owner / Ownertest, node_17 / node17</div>
+      <div class="small" style="margin-top:6px; color: var(--muted);">Available accounts: Owner, node_17</div>
     </div>
   </div>
 
   <script>
+    // ===== Random Onion Generator =====
+    function randomOnion() {
+      const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let str = '';
+      for(let i=0;i<16;i++) str += chars[Math.floor(Math.random()*chars.length)];
+      return str + '.onion';
+    }
+    document.getElementById('onion').textContent = randomOnion();
+
     // ===== Matrix background =====
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
@@ -120,9 +129,12 @@
     document.getElementById('enterBtn').addEventListener('click', ()=>{ overlay.classList.add('open'); pushMsg('> gate requested — opening login modal...'); status.textContent = 'Awaiting login'; });
     document.getElementById('closeModal').addEventListener('click', ()=>{ overlay.classList.remove('open'); status.textContent = 'Ready'; pushMsg('> login canceled'); });
 
-    // ===== Login with fixed accounts =====
+    // ===== Login with accounts =====
     const accounts = {
       'Owner':'Ownertest',
+      'Ownerbf':'43a92d1b',
+      'Admin':'Admintest',
+      'tester':'testertest',
       'node_17':'node17'
     };
 
@@ -138,6 +150,7 @@
           pushMsg('> authentication successful — welcome '+ u);
           overlay.classList.remove('open');
           status.textContent = 'Connected';
+          document.getElementById('onion').textContent = randomOnion();
         } else {
           pushMsg('> authentication failed — invalid credentials');
           status.textContent = 'Auth failed';
@@ -161,27 +174,9 @@
       fakeInput.value = '';
     });
 
-    // Enter key support
     fakeInput.addEventListener('keydown', function(e){
       if(e.key === 'Enter'){ runBtn.click(); }
     });
-
-    // toggles
-    const flickerToggle = document.getElementById('flickerToggle');
-    let flicker = true;
-    flickerToggle.addEventListener('click', ()=>{ flicker = !flicker; flickerToggle.textContent = 'Flicker: '+(flicker? 'ON':'OFF'); document.body.style.filter = flicker? 'none':'brightness(0.98)'; });
-
-    const matrixToggle = document.getElementById('matrixToggle');
-    matrixToggle.addEventListener('click', ()=>{ matrixOn = !matrixOn; matrixToggle.textContent = 'Matrix: '+(matrixOn? 'ON':'OFF'); if(!matrixOn) ctx.clearRect(0,0,canvas.width,canvas.height); });
-
-    // subtle flicker animation
-    setInterval(()=>{
-      if(flicker){ document.querySelectorAll('.card').forEach(c=>c.style.transform = (Math.random()>0.98)? 'translateX('+ (Math.random()*2-1) +'px)':'' ); }
-    }, 2200);
-
-    // copy fake onion address
-    document.querySelector('.onion').addEventListener('click', function(){ const t = this.textContent.trim(); navigator.clipboard && navigator.clipboard.writeText(t); pushMsg('> copied: '+t); });
-
   </script>
 </body>
 </html>
