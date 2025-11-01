@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shitcoin Clicker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginOverlay" class="overlay" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+  <h2>Login / Signup</h2>
+  <input type="text" id="loginUser" placeholder="Username">
+  <input type="password" id="loginPass" placeholder="Password">
+  <div style="margin-top:10px;">
+    <button class="btn" id="loginBtn">Login</button>
+    <button class="btn" id="signupBtn">Signup</button>
+  </div>
+</div>
+
+<div class="wrap" style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+
+  <h1>Shitcoin Clicker</h1>
+
+  <div class="stats-row">
+    <div class="stat">Coins: <span id="coinCount">0</span></div>
+    <div class="stat">Per Click: <span id="perClick">1</span></div>
+    <div class="stat">Auto-Miner: <span id="autoMiner">0</span></div>
+    <div class="stat">Total Clicks: <span id="totalClicks">0</span></div>
+  </div>
+
+  <button id="clickerBtn" class="btn large-btn">Mine Coins</button>
+
+  <h3>Upgrades</h3>
+  <div id="upgradeContainer" class="upgrade-bar"></div>
+
+  <h3>Achievements</h3>
+  <ul id="achievementList"></ul>
+
+  <button id="devBtn" class="btn">Open Dev Panel</button>
+  <button id="logoutBtn" class="btn" style="display:none;">Logout</button>
+
+</div>
+
+<!-- DEV PANEL -->
+<div id="devOverlay" class="overlay">
+  <div class="modal">
+    <h3>Dev Panel Login</h3>
+    <input type="password" id="devPass" placeholder="Dev Password">
+    <button id="unlockDevBtn" class="btn">Unlock</button>
+    <button id="closeDevBtn" class="btn">Cancel</button>
+  </div>
+</div>
+
+<div id="devPanel" style="display:none; padding:12px; margin:12px; border:1px solid var(--neon); border-radius:10px;">
+  <h3>Admin Controls</h3>
+  <div class="dev-controls">
+    <label>Coins: <input type="number" id="devCoins"></label>
+    <label>Per Click: <input type="number" id="devPerClick"></label>
+    <label>Auto Miner: <input type="number" id="devAddMiner"></label>
+    <button id="devApplyBtn" class="btn">Apply</button>
+  </div>
+  <div class="dev-buttons">
+    <button id="devUnlockAllBtn" class="btn">Unlock All Upgrades</button>
+    <button id="devResetUpgradesBtn" class="btn">Reset Upgrades</button>
+    <button id="devResetAllBtn" class="btn">Reset All Users</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+:root {
+  --bg: #050507;
+  --neon: #00ffb3;
+  --accent: #6be0ff;
+  --muted: #9aa0a6;
+  --glass: rgba(255,255,255,0.03);
+  --btn-glow: rgba(0,255,179,0.4);
+}
+
+/* Reset / Base */
+* {box-sizing:border-box;}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;}
+body{
+  background:
+    radial-gradient(1200px 600px at 10% 10%, #07112a 0%, transparent 20%),
+    radial-gradient(900px 400px at 90% 90%, #120a1a 0%, transparent 20%),
+    var(--bg);
+  color:var(--neon);
+  overflow-x:hidden;
+}
+
+/* Grain overlay */
+.grain{
+  pointer-events:none;
+  position:fixed;
+  inset:0;
+  background-image:linear-gradient(transparent, rgba(255,255,255,0.02));
+  mix-blend-mode:overlay;
+  opacity:0.15;
+}
+
+/* Layout */
+.wrap{position:relative;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px;}
+.card{
+  width:1000px;
+  max-width:95%;
+  display:flex;
+  gap:24px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(0,255,179,0.06);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.7);
+}
+
+/* Left section */
+.left{
+  flex:1;
+}
+.left h1{
+  font-family:'Share Tech Mono',monospace;
+  font-size:2rem;
+  margin-bottom:12px;
+  text-shadow:0 2px 12px rgba(0,0,0,0.6);
+}
+.left p{
+  margin:4px 0;
+}
+
+/* Buttons */
+.btn{
+  background:linear-gradient(90deg,var(--neon),var(--accent));
+  color:#041018;
+  font-weight:700;
+  border:none;
+  border-radius:8px;
+  padding:10px 14px;
+  margin:4px 2px;
+  cursor:pointer;
+  box-shadow:0 0 8px var(--btn-glow),0 0 20px var(--btn-glow);
+  transition:0.2s;
+}
+.btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 12px var(--btn-glow),0 0 24px var(--btn-glow);
+}
+.large-btn{font-size:1.2rem;padding:14px 20px;}
+
+/* Upgrade bar */
+.upgrade-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:8px;
+}
+.upgrade-bar button{
+  flex:1 1 120px;
+  text-align:center;
+}
+
+/* Achievements */
+#achievementList{
+  list-style:none;
+  padding-left:0;
+  margin-top:8px;
+}
+
+/* Right section (Dev Panel) */
+.right{
+  width:300px;
+  flex-shrink:0;
+}
+#devPanel, #devOverlay{
+  background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+  border:1px solid rgba(0,255,179,0.1);
+  border-radius:12px;
+  padding:16px;
+  margin-top:12px;
+}
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter: blur(3px);
+  z-index:100;
+  display:none;
+}
+.modal{
+  background:rgba(0,0,0,0.85);
+  border-radius:12px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  width:320px;
+  border:1px solid rgba(0,255,179,0.2);
+}
+
+/* Inputs */
+input{
+  background:#00000020;
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--neon);
+  border-radius:8px;
+  padding:8px;
+  font-family:'Share Tech Mono',monospace;
+}
+
+/* Canvas matrix */
+canvas#matrix{
+  position:fixed;
+  left:0;
+  top:0;
+  z-index:0;
+  opacity:0.12;
+  mix-blend-mode:screen;
+}
+
+/* Scrollable upgrade / achievement containers */
+#upgradeContainer, #achievementList{
+  max-height:220px;
+  overflow-y:auto;
+  padding-right:4px;
+}
