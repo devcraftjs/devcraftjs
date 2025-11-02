@@ -1,0 +1,56 @@
+/* Modal styling for dev panel */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 999; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background-color: #111;
+  margin: 15% auto;
+  padding: 20px;
+  border: 2px solid #00ffcc;
+  width: 400px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.close {
+  color: #00ffcc;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #ff4d4d;
+}
+input[type=number] {
+  padding: 5px;
+  margin: 5px 0;
+  width: 80%;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+}
+button {
+  padding: 6px 12px;
+  margin: 5px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0,255,204,0.6);
+}
