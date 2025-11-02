@@ -1,0 +1,129 @@
+// === Game Variables ===
+let money = 0;
+let baseClick = 1; // base per click
+
+// Businesses array
+const businesses = [
+  { name: 'Lemonade Stand', cost: 10, income: 1, owned: 0 },
+  { name: 'Newspaper Delivery', cost: 50, income: 5, owned: 0 },
+  { name: 'Car Wash', cost: 200, income: 20, owned: 0 },
+  { name: 'Pizza Shop', cost: 1000, income: 100, owned: 0 },
+  { name: 'btc shop', cost: 2000000, income: 200000000, owned: 0 },
+];
+
+const moneyDisplay = document.getElementById('money');
+const perClickDisplay = document.getElementById('perClick');
+const businessesDiv = document.getElementById('businesses');
+
+// === Functions ===
+
+// Calculate total per-click income
+function calculatePerClick() {
+  let clickIncome = baseClick;
+  businesses.forEach(b => {
+    clickIncome += b.owned * b.income; // each business adds to per click
+  });
+  return clickIncome;
+}
+
+// Update displays
+function updateDisplay() {
+  perClick = calculatePerClick();
+  moneyDisplay.textContent = money;
+  perClickDisplay.textContent = perClick;
+  renderBusinesses();
+}
+
+// Render business buttons
+function renderBusinesses() {
+  businessesDiv.innerHTML = '';
+  businesses.forEach((biz, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = `${biz.name} ($${biz.cost}) - Owned: ${biz.owned}`;
+    btn.onclick = () => buyBusiness(index);
+    businessesDiv.appendChild(btn);
+  });
+}
+
+// Earn money per click
+document.getElementById('earn').addEventListener('click', () => {
+  money += calculatePerClick();
+  updateDisplay();
+});
+
+// Buy business
+function buyBusiness(index) {
+  const biz = businesses[index];
+  if (money >= biz.cost) {
+    money -= biz.cost;
+    biz.owned += 1;
+    biz.cost = Math.floor(biz.cost * 1.5); // cost scaling
+    updateDisplay();
+  } else {
+    alert("Not enough money!");
+  }
+}
+
+// Auto income per second
+setInterval(() => {
+  let totalIncome = businesses.reduce((sum, b) => sum + b.income * b.owned, 0);
+  money += totalIncome;
+  updateDisplay();
+}, 1000);
+
+// Initial render
+updateDisplay();
+
+// === Dev Panel HTML ===
+const devPanelHTML = `
+<div id="overlay"></div>
+<div id="devPanel">
+  <h2>Developer Panel</h2>
+  <input type="password" id="devPass" placeholder="Password"><br><br>
+  <button id="devSubmit">Submit</button>
+  <hr>
+  <div id="devActions" style="display:none;">
+    <button onclick="money += 1000; updateDisplay();">Add $1000</button>
+    <button onclick="baseClick += 1; updateDisplay();">Increase Base Click</button>
+    <button onclick="money = 0; baseClick = 1; businesses.forEach(b => { b.owned = 0; b.cost = b.cost / Math.pow(1.5, b.owned); }); updateDisplay();">Reset Game</button>
+  </div>
+</div>
+`;
+document.body.insertAdjacentHTML('beforeend', devPanelHTML);
+
+const devPanel = document.getElementById('devPanel');
+const overlay = document.getElementById('overlay');
+const devPassInput = document.getElementById('devPass');
+const devSubmit = document.getElementById('devSubmit');
+const devActions = document.getElementById('devActions');
+
+// Open dev panel with Ctrl + K
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey && e.key.toLowerCase() === 'k') {
+    overlay.style.display = 'block';
+    devPanel.style.display = 'block';
+    devPassInput.style.display = 'block';
+    devSubmit.style.display = 'block';
+    devActions.style.display = 'none';
+    devPassInput.value = '';
+    devPassInput.focus();
+  }
+});
+
+// Close panel by clicking overlay
+overlay.addEventListener('click', () => {
+  devPanel.style.display = 'none';
+  overlay.style.display = 'none';
+});
+
+// Dev panel submit
+devSubmit.addEventListener('click', () => {
+  if (devPassInput.value === 'Devpanel') {
+    devActions.style.display = 'block';
+    devPassInput.style.display = 'none';
+    devSubmit.style.display = 'none';
+  } else {
+    alert('Wrong password!');
+    devPassInput.value = '';
+  }
+});
