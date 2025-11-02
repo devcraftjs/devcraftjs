@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slot Machine Simulator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #ffcc00;
+    }
+
+    .slot-machine {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .reel {
+      width: 100px;
+      height: 100px;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      margin: 0 10px;
+      font-size: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      transition: transform 0.5s ease;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      background: #ffcc00;
+      color: #000;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #ffdd33;
+    }
+
+    .scoreboard {
+      margin-top: 30px;
+    }
+
+    .player-score {
+      margin-bottom: 10px;
+    }
+
+    .dev-panel {
+      margin-top: 40px;
+      background: #333;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .dev-panel input, .dev-panel select {
+      padding: 5px;
+      margin: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .dev-panel label {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Slot Machine Simulator</h1>
+
+  <div class="slot-machine">
+    <div class="reel" id="reel1">🍒</div>
+    <div class="reel" id="reel2">🍋</div>
+    <div class="reel" id="reel3">🍊</div>
+  </div>
+
+  <button onclick="spin()">Spin!</button>
+
+  <div class="scoreboard" id="scoreboard">
+    <div class="player-score" id="player1">Player 1 Score: 0</div>
+    <div class="player-score" id="player2">Player 2 Score: 0</div>
+  </div>
+
+  <!-- Developer Panel -->
+  <div class="dev-panel">
+    <h2>Developer Panel</h2>
+    <div>
+      <label>Force Reels:</label>
+      <select id="forceReel1">
+        <option value="">Reel 1</option>
+        <option>🍒</option>
+        <option>🍋</option>
+        <option>🍊</option>
+        <option>🍉</option>
+        <option>⭐</option>
+        <option>7️⃣</option>
+      </select>
+      <select id="forceReel2">
+        <option value="">Reel 2</option>
+        <option>🍒</option>
+        <option>🍋</option>
+        <option>🍊</option>
+        <option>🍉</option>
+        <option>⭐</option>
+        <option>7️⃣</option>
+      </select>
+      <select id="forceReel3">
+        <option value="">Reel 3</option>
+        <option>🍒</option>
+        <option>🍋</option>
+        <option>🍊</option>
+        <option>🍉</option>
+        <option>⭐</option>
+        <option>7️⃣</option>
+      </select>
+      <button onclick="forceSpin()">Force Spin</button>
+    </div>
+
+    <div>
+      <label>Set Player Scores:</label>
+      <input type="number" id="score1" placeholder="Player 1" min="0">
+      <input type="number" id="score2" placeholder="Player 2" min="0">
+      <button onclick="setScores()">Apply Scores</button>
+    </div>
+
+    <div>
+      <label>Switch Player:</label>
+      <button onclick="switchPlayer()">Switch</button>
+      <span id="currentPlayer">Current Player: 1</span>
+    </div>
+  </div>
+
+  <!-- Include external JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

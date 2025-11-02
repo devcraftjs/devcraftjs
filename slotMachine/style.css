@@ -1,0 +1,122 @@
+/* ---------- GENERAL ---------- */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom, #222, #111);
+  color: #fff;
+  text-align: center;
+  padding: 50px;
+  margin: 0;
+}
+
+h1 {
+  color: #ffcc00;
+  font-size: 3rem;
+  margin-bottom: 40px;
+}
+
+/* ---------- SLOT MACHINE ---------- */
+.slot-machine {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.reel {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #fff;
+  border-radius: 15px;
+  margin: 0 15px;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reel.spin {
+  animation: spinReel 0.5s linear infinite;
+}
+
+/* Spin animation (optional effect) */
+@keyframes spinReel {
+  0% { transform: rotateX(0deg); }
+  50% { transform: rotateX(180deg); }
+  100% { transform: rotateX(360deg); }
+}
+
+/* ---------- BUTTONS ---------- */
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #ffcc00;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: #ffdd33;
+  transform: scale(1.05);
+}
+
+/* ---------- SCOREBOARD ---------- */
+.scoreboard {
+  margin-top: 30px;
+}
+
+.player-score {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+/* ---------- DEV PANEL ---------- */
+.dev-panel {
+  margin-top: 40px;
+  background: #333;
+  padding: 20px;
+  border-radius: 15px;
+  display: none; /* hidden by default */
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dev-panel h2 {
+  margin-top: 0;
+  color: #ffcc00;
+}
+
+.dev-panel label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.dev-panel input,
+.dev-panel select {
+  padding: 5px 8px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+
+.dev-panel button {
+  margin-top: 10px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+  .slot-machine {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reel {
+    margin: 10px 0;
+  }
+}
