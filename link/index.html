@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quick Links - DevCraftJS</title>
+<style>
+/* Paste your full CSS here */
+:root{
+  --bg:#050507;
+  --neon:#00ffb3;
+  --accent:#6be0ff;
+  --muted:#9aa0a6;
+  --glass: rgba(255,255,255,0.03);
+}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+body{
+  background:
+    radial-gradient(1200px 600px at 10% 10%, #07112a 0%, transparent 20%),
+    radial-gradient(900px 400px at 90% 90%, #120a1a 0%, transparent 20%),
+    var(--bg);
+  color:var(--neon);
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.grain{pointer-events:none;position:fixed;inset:0;background-image:linear-gradient(transparent, rgba(255,255,255,0.02));mix-blend-mode:overlay;opacity:0.15;}
+.wrap{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+.card{width:980px;max-width:calc(100% - 48px);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(0,255,179,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.8);border-radius:14px;padding:26px;backdrop-filter: blur(6px);display:grid;grid-template-columns:410px 1fr;gap:18px;position:relative;z-index:10;}
+.left{padding:18px;border-radius:10px;border:1px dashed rgba(0,255,179,0.04);background:linear-gradient(180deg, rgba(0,0,0,0.2), transparent);}
+.btn{display:inline-block;margin-top:14px;padding:10px 14px;border-radius:8px;background:linear-gradient(90deg,var(--neon),var(--accent));color:#041018;font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(0,255,179,0.06);}
+h1{font-family:'Share Tech Mono',monospace;margin:6px 0 8px;font-size:2rem;text-shadow:0 2px 12px rgba(0,0,0,0.6);}
+.subtitle{color:var(--muted);margin-bottom:12px}
+canvas#matrix{position:fixed;left:0;top:0;z-index:0;opacity:0.12;mix-blend-mode:screen;}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0}
+.glitch::before{color:var(--neon);clip-path:polygon(0 0,100% 0,100% 45%,0 45%);transform:translate(-2px,-1px)}
+.glitch::after{color:var(--accent);clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);transform:translate(2px,1px);opacity:0.8}
+.glitch{animation:glitch 2.5s infinite}
+@keyframes glitch{0%{transform:none}10%{transform:skewX(-3deg)}20%{transform:none}30%{transform:translateX(-2px)}40%{transform:none}100%{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card left">
+    <h1 class="glitch" data-text="Quick Links">Quick Links</h1>
+    <p class="subtitle">Click a button to open the link.</p>
+
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/SecureGenerator" target="_blank">Secure Generator</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/QuickLinks" target="_blank">Quick Links</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/ShitcoinClicker" target="_blank">Shitcoin Clicker</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/darkweb" target="_blank">Dark Web</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/encoderdecoder" target="_blank">Encoder/Decoder</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/loginsimulator" target="_blank">Login Simulator</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/qrcodegen" target="_blank">QR Code Generator</a>
+    <a class="btn" href="https://devcraftjs.github.io/devcraftjs/winshitcoin" target="_blank">Windows Shitcoin</a>
+  </div>
+</div>
+<div class="grain"></div>
+<canvas id="matrix"></canvas>
+</body>
+</html>
