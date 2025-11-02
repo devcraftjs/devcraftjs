@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain"></div>
+  
+  <div class="wrap">
+    <div class="card">
+      <div class="left">
+        <div class="logo">NEON SYSTEM<span class="badge">v1.0</span></div>
+        <p class="subtitle">Secure access portal</p>
+        <div class="btn" id="openLogin">Login</div>
+        <div class="chip">Cyber Access</div>
+      </div>
+      <div class="right">
+        <h1 class="glitch" data-text="WELCOME">WELCOME</h1>
+        <p class="subtitle">Enter the digital realm</p>
+        <div class="terminal">
+          <p class="mini">System ready...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="overlay" id="loginModal">
+    <div class="modal">
+      <h2>Login</h2>
+      <div class="field">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Enter username">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter password">
+      </div>
+      <div class="btn" id="loginBtn">Login</div>
+      <div class="ghost small" id="loginMsg"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
