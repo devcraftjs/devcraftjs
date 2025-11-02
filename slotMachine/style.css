@@ -1,0 +1,130 @@
+/* === General Styles === */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(120deg, #f0f4ff, #d0e4ff);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #333;
+}
+
+/* === Game Container === */
+#game {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* === Buttons === */
+button {
+  padding: 12px 25px;
+  font-size: 16px;
+  margin: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: #45a049;
+  transform: scale(1.05);
+}
+
+/* === Businesses Section === */
+#businesses button {
+  width: 100%;
+  text-align: left;
+  background: #2196F3;
+  margin: 5px 0;
+}
+
+#businesses button:hover {
+  background: #1e88e5;
+  transform: scale(1.02);
+}
+
+/* === Dev Panel Overlay === */
+#overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+/* === Dev Panel Box === */
+#devPanel {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #222;
+  color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  z-index: 1000;
+  width: 360px;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* === Dev Panel Inputs === */
+#devPanel input[type="password"],
+#devPanel input[type="number"] {
+  padding: 10px;
+  margin: 10px 0;
+  width: 80%;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+}
+
+/* === Dev Panel Buttons === */
+#devPanel button {
+  margin: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  background-color: #f57c00;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#devPanel button:hover {
+  background-color: #fb8c00;
+  transform: scale(1.05);
+}
+
+/* === Dev Actions Section === */
+#devActions {
+  margin-top: 15px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #555;
+  margin: 15px 0;
+}
+
+/* === Text Styling === */
+h1 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
